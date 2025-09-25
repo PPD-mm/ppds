@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanPan - Design Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --nav-height: 55px;
+            --nav-bg: #fff;
+            --nav-text: #444;
+            --hover-bg: #f7f7f7;
+            --content-width: 1000px;
+            --font-main: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --primary-color: #ff4f8b;
+            --c1-primary: #ff6b9f;
+            --c1-text-dark: #636363;
+            --c1-text-light: #999999;
+            --c1-bg-light: #ffffff;
+            --c1-card-bg: #f8f8f8;
+            --c1-icon-bg: #f8f8f8;
+            --c1-salary-soft: #ff7fae;
+            --tab-bar-height: 60px;
+            --tab-bg: #fff;
+            --tab-color: #888;
+            --tab-active-color: #ff4f8b;
+            --tab-border: rgba(0,0,0,0.08);
+            --body-bg: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
+        body.dark {
+            --nav-bg: #121212;
+            --nav-text: #f1f1f1;
+            --hover-bg: #1f1f1f;
+            background: #121212;
+            color: #f1f1f1;
+            --c1-primary: #ff6b9f;
+            --c1-text-dark: #f1f1f1;
+            --c1-text-light: #a4a4a4;
+            --c1-bg-light: #121212;
+            --c1-card-bg: #1f1f1f;
+            --c1-icon-bg: #292929;
+            --c1-icon-color: #ff6b9f;
+            --c1-salary-soft: #ff7fae;
+            --tab-bg: #1c1c1c;
+            --tab-color: #999;
+            --tab-active-color: #ff6099;
+            --tab-border: rgba(255,255,255,0.1);
+            --body-bg: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--c1-text-dark);
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Navigation Styles */
+        .navigation {
+            height: var(--nav-height);
+            background: var(--nav-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        nav {
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-mobile {
+            display: none;
+        }
+
+        #nav-toggle {
+            cursor: pointer;
+            width: 22px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #nav-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--nav-text);
+            border-radius: 2px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #nav-toggle span::before,
+        #nav-toggle span::after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--nav-text);
+            border-radius: 2px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #nav-toggle span::before { top: -8px; }
+        #nav-toggle span::after { top: 8px; }
+
+        #nav-toggle.active span { background-color: transparent; }
+        #nav-toggle.active span::before { transform: rotate(45deg); top: 0; }
+        #nav-toggle.active span::after { transform: rotate(-45deg); top: 0; }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-list li a {
+            display: block;
+            padding: 0 20px;
+            line-height: var(--nav-height);
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .nav-list li a:hover { background: var(--hover-bg); }
+
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            background: var(--nav-bg);
+            z-index: 99;
+            flex-direction: column;
+            border-radius: 6px;
+        }
+
+        .nav-dropdown li a {
+            padding: 0.7rem 1rem;
+            font-weight: 500;
+            width: 100%;
+            color: var(--nav-text);
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--nav-text);
+            transition: color 0.3s;
+        }
+
+        @media (max-width: 798px) {
+            .nav-mobile { display: block; }
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: var(--nav-height);
+                right: 0;
+                width: 100%;
+                background: var(--nav-bg);
+                padding: 0.5rem 0;
+                z-index: 999;
+                align-items: stretch;
+            }
+            .nav-list.show { display: flex; }
+            .nav-list li a {
+                width: 100%;
+                padding: 1rem 1.2rem;
+                line-height: 1.5rem;
+                text-align: left;
+                display: block;
+            }
+            .nav-dropdown {
+                position: relative;
+                top: 0;
+                left: 0;
+                border-radius: 0;
+                width: 100%;
+            }
+            .nav-dropdown li a {
+                padding-left: 1.8rem;
+                font-size: 0.95rem;
+                line-height: 1.5rem;
+            }
+
+            /* Move dark/light toggle slightly left */
+            .right-controls .toggle-btn { 
+                margin-right: 12px;
+                font-size: 21px; /* same as hamburger bar width */
+                line-height: 1; /* tighter alignment */
+            }
+        }
+
+        nav a::before,
+        nav a::after { 
+            content: none !important; 
+            display: none !important; 
+        }
+
+        /* Header Content (Search + Categories) */
+        .header-content {
+            background: var(--nav-bg);
+            padding: 15px 20px 10px;
+            position: sticky;
+            top: var(--nav-height);
+            z-index: 999;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 50px 12px 45px;
+            border-radius: 10px;
+            border: none;
+            background: var(--c1-card-bg);
+            color: var(--c1-text-dark);
+            font-size: 16px;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--c1-text-light);
+        }
+
+        .search-bar i.search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--c1-text-light);
+        }
+
+        .search-bar .clear-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--c1-text-light);
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+        }
+
+        .search-bar .clear-btn.show {
+            display: block;
+        }
+
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 5px 0 10px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            background: var(--c1-card-bg);
+            color: var(--c1-text-light);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .category.active {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Content Styles */
+        .content {
+            padding: 20px 15px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--c1-text-dark);
+            padding-left: 5px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .resource-card {
+            background: var(--c1-card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-image {
+            height: 120px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-image .icon-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-info {
+            padding: 12px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--c1-text-dark);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--c1-text-light);
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #ff3a7d;
+        }
+
+        /* Search results */
+        .search-results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--c1-card-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .result-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            overflow: hidden;
+        }
+
+        .result-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-info {
+            flex: 1;
+        }
+
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .result-type {
+            font-size: 12px;
+            color: var(--c1-text-light);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px 0;
+        }
+
+        .pagination-btn {
+            background: var(--c1-card-bg);
+            border: none;
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--c1-text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover:not(.active) {
+            background: var(--hover-bg);
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Preview Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--c1-bg-light);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            overflow: hidden;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--c1-text-dark);
+        }
+
+        .modal-meta {
+            color: var(--c1-text-light);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .modal-details {
+            text-align: left;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--c1-card-bg);
+            border-radius: 8px;
+        }
+
+        .modal-detail {
+            font-size: 14px;
+            color: var(--c1-text-light);
+            margin: 5px 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .preview-modal-btn {
+            background: var(--c1-card-bg);
+            color: var(--c1-text-dark);
+        }
+
+        .download-modal-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* iOS-style safe area */
+        .safe-area-top {
+            height: env(safe-area-inset-top);
+            background: var(--nav-bg);
+        }
+
+        .safe-area-bottom {
+            height: env(safe-area-inset-bottom);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .card-image {
+                height: 110px;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="safe-area-top"></div>
+    
+    <!-- Navigation -->
+    <section class="navigation">
+        <div class="nav-container">
+            <nav>
+                <a href="#" class="nav-logo">PanPan <span>Design</span></a>
+                <div class="nav-right">
+                    <ul class="nav-list">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                    <div class="right-controls">
+                        <div class="toggle-btn" id="toggleTheme">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <div class="nav-mobile">
+                            <a id="nav-toggle" href="javascript:void(0)"><span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    
+    <!-- Header Content (Search + Categories) -->
+    <div class="header-content">
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search resources...">
+            <button class="clear-btn" id="clearBtn">&times;</button>
+        </div>
+        
+        <div class="categories">
+            <div class="category active">All</div>
+            <div class="category">Mockups</div>
+            <div class="category">Vectors</div>
+            <div class="category">Fonts</div>
+            <div class="category">PSD</div>
+            
+        </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <!-- Search Results -->
+        <div class="search-results" id="searchResults">
+            <h2 class="section-title">Search Results</h2>
+            <div id="resultsList"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div id="mainContent">
+            <h2 class="section-title">Free Resources</h2>
+            <div class="resources-grid" id="resourcesGrid">
+                <!-- Resources will be dynamically loaded here -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn" id="prevPage">&laquo;</button>
+                <button class="pagination-btn active" data-page="1">1</button>
+                <button class="pagination-btn" data-page="2">2</button>
+                <button class="pagination-btn" data-page="3">3</button>
+                <button class="pagination-btn" id="nextPage">&raquo;</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Preview Modal -->
+    <div class="modal" id="previewModal">
+        <button class="close-modal">&times;</button>
+        <div class="modal-content">
+            <div class="modal-image" id="modalImage">
+                <div class="icon-fallback">
+                    <i class="fas fa-vector-square"></i>
+                </div>
+            </div>
+            <div class="modal-title" id="modalTitle">Resource Title</div>
+            <div class="modal-meta" id="modalMeta">Creator: John Designer</div>
+            <div class="modal-details" id="modalDetails">
+                <div class="modal-detail">- Format: 1 PSD file</div>
+                <div class="modal-detail">- Size: 160 Mb</div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn download-modal-btn">Download</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="safe-area-bottom"></div>
+
+    <script>
+        // Mock data for all resources with creators and images
+        const allResources = [
+            { 
+                id: 1, 
+                title: "iMac Screen Mockup", 
+                type: "Mockup", 
+                creator: "Pixeden", 
+                downloads: "2.4k",
+                image: "https://www.free-mockup.com/wp-content/uploads/edd/2025/09/imac-screen-mockup-website-design-presentation-01-600x450.webp",
+                downloadLink: "https://dl.dropboxusercontent.com/scl/fi/zyp9alqbus8dpw0v6wsl2/iMac-Showcase-Screen-Scene-Free-psd-Mockup-PIXEDEN.zip?rlkey=2u5m6n6or57c58nhsizmgezoo&dl=1"
+            },
+            { 
+                id: 2, 
+                title: "Buddha Purnima", 
+                type: "Vector", 
+                creator: "Starline", 
+                downloads: "5.1k", 
+                image: "https://img.freepik.com/free-vector/happy-buddha-purnima-religious-background-faith-peace_1017-43933.jpg?uid=R216012228&ga=GA1.1.236897992.1758784469&semt=ais_hybrid&w=740&q=80",
+                downloadLink: "https://dl.dropboxusercontent.com/scl/fi/wrq9ckc2p7c1ys71bqc8m/buddha-purnima-religious-background-faith-peace.eps?rlkey=psrtnnxfavmh6zriyswu814ws&st=nc8muyqq&dl=0",
+                details: [
+                    "- Format: 1 EPS file",
+                    "- Size: 8.3 Mb"
+                ]
+            },
+            { 
+                id: 3, 
+                title: "August Stories Font", 
+                type: "Font", 
+                creator: "Sarid Ezra", 
+                downloads: "3.7k", 
+                image: "https://img.freepik.com/fonts/public/302/conversions/August-Stories-preview.jpg",
+                downloadLink: "https://dl.dropboxusercontent.com/scl/fi/969j94l4em4bk9azmhbw7/august-stories.zip?rlkey=6uls3jdwqd79ve9jdaaim6yng&st=yyywspji&dl=0",
+                details: [
+                    "- Format: 2 TTF files",
+                        "- Size: 224 Kb"
+                ]
+            },
+            { 
+                id: 4, 
+                title: "Silver Text Effect", 
+                type: "PSD", 
+                creator: "Hellomuh22", 
+                downloads: "1.9k", 
+                image: "https://img.freepik.com/free-psd/silver-3d-editable-text-effect_511564-2049.jpg?uid=R216012228&ga=GA1.1.236897992.1758784469&w=740&q=80",
+                downloadLink: "https://dl.dropboxusercontent.com/scl/fi/8szneq3x748t5d1bem17w/Silver-Text-Effect.psd?rlkey=3py8ohpifza4wdffovswzh7cg&st=o155x9v8&dl=0",
+                details: [
+                    "- Format: 1 PSD file",
+                    "- Size: 10.3 Mb"
+                ]
+            },
+            { id: 5, title: "Business Icons Set", type: "SVG", creator: "Casey Vector", downloads: "12.4k", downloadLink: "#" },
+            { id: 6, title: "Mobile UI Kit", type: "PSD", creator: "Morgan UI", downloads: "9.8k", downloadLink: "#" },
+            { id: 7, title: "Social Media Templates", type: "AI", creator: "Riley Social", downloads: "8.3k", downloadLink: "#" },
+            { id: 8, title: "Minimalist Patterns", type: "EPS", creator: "Quinn Pattern", downloads: "7.6k", downloadLink: "#" },
+            { id: 9, title: "Flat Vector Icons", type: "SVG", creator: "Drew Flat", downloads: "6.2k", downloadLink: "#" },
+            { id: 10, title: "Landscape Photos", type: "JPG", creator: "Peyton Nature", downloads: "4.8k", downloadLink: "#" },
+            { id: 11, title: "Business Cards", type: "PSD", creator: "Skyler Print", downloads: "3.5k", downloadLink: "#" },
+            { id: 12, title: "Web Templates", type: "HTML", creator: "Avery Web", downloads: "11.2k", downloadLink: "#" },
+            { id: 13, title: "Logo Collection", type: "AI", creator: "Emery Logo", downloads: "5.7k", downloadLink: "#" },
+            { id: 14, title: "Dashboard UI", type: "Sketch", creator: "Finley Dash", downloads: "8.9k", downloadLink: "#" },
+            { id: 15, title: "Illustration Pack", type: "PNG", creator: "Rowan Art", downloads: "6.4k", downloadLink: "#" },
+            { id: 16, title: "Typography Set", type: "OTF", creator: "Harper Type", downloads: "3.2k", downloadLink: "#" },
+            { id: 17, title: "3D Mockups", type: "PSD", creator: "Ellis 3D", downloads: "9.1k", downloadLink: "#" },
+            { id: 18, title: "Gradient Textures", type: "JPG", creator: "Sage Texture", downloads: "4.6k", downloadLink: "#" }
+        ];
+
+        // Pagination variables
+        const itemsPerPage = 6;
+        let currentPage = 1;
+        const totalPages = Math.ceil(allResources.length / itemsPerPage);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Navigation toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navList = document.querySelector('.nav-list');
+
+            navToggle.addEventListener('click', function () {
+                navList.classList.toggle('show');
+                navToggle.classList.toggle('active');
+            });
+
+            // Theme toggle
+            const toggleTheme = document.getElementById("toggleTheme");
+            const body = document.body;
+
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function setTheme(theme) {
+                body.classList.toggle("dark", theme === 'dark');
+                toggleTheme.innerHTML = theme === 'dark'
+                    ? '<i class="fa-solid fa-sun"></i>'
+                    : '<i class="fa-solid fa-moon"></i>';
+                setCookie('theme', theme, 365);
+            }
+
+            const savedTheme = getCookie('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+
+            toggleTheme.addEventListener("click", () => {
+                const newTheme = body.classList.contains("dark") ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            // Category selection
+            const categories = document.querySelectorAll('.category');
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    categories.forEach(cat => cat.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Modal functionality
+            const previewModal = document.getElementById('previewModal');
+            const closeModal = document.querySelector('.close-modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMeta = document.getElementById('modalMeta');
+            const modalImage = document.getElementById('modalImage');
+            const modalDetails = document.getElementById('modalDetails');
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const resultsList = document.getElementById('resultsList');
+            const mainContent = document.getElementById('mainContent');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            // Pagination elements
+            const paginationBtns = document.querySelectorAll('.pagination-btn:not(#prevPage):not(#nextPage)');
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+            const resourcesGrid = document.getElementById('resourcesGrid');
+            
+            // Show/hide clear button based on input
+            searchInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    clearBtn.classList.add('show');
+                } else {
+                    clearBtn.classList.remove('show');
+                }
+            });
+            
+            // Clear search input
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                clearBtn.classList.remove('show');
+                searchResults.style.display = 'none';
+                mainContent.style.display = 'block';
+                searchInput.focus();
+            });
+            
+            // Display resources for current page
+            function displayResources(page) {
+                resourcesGrid.innerHTML = '';
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const pageResources = allResources.slice(startIndex, endIndex);
+                
+                pageResources.forEach(resource => {
+                    const resourceCard = document.createElement('div');
+                    resourceCard.className = 'resource-card';
+                    resourceCard.dataset.id = resource.id;
+                    resourceCard.dataset.title = resource.title;
+                    resourceCard.dataset.type = resource.type;
+                    resourceCard.dataset.creator = resource.creator;
+                    resourceCard.dataset.downloads = resource.downloads;
+                    resourceCard.dataset.image = resource.image || '';
+                    resourceCard.dataset.downloadLink = resource.downloadLink || '#';
+                    
+                    // Set appropriate icon based on type
+                    let iconClass = 'fas fa-vector-square';
+                    if (resource.type === 'PNG' || resource.type === 'JPG') iconClass = 'fas fa-image';
+                    if (resource.type === 'TTF' || resource.type === 'OTF' || resource.type === 'Font') iconClass = 'fas fa-font';
+                    if (resource.type === 'PSD') iconClass = 'fas fa-file-image';
+                    if (resource.type === 'AI' || resource.type === 'Sketch') iconClass = 'fas fa-paint-brush';
+                    if (resource.type === 'EPS' || resource.type === 'Vector') iconClass = 'fas fa-th-large';
+                    if (resource.type === 'HTML') iconClass = 'fas fa-code';
+                    
+                    let imageContent = `<div class="icon-fallback"><i class="${iconClass}"></i></div>`;
+                    if (resource.image) {
+                        imageContent = `<img src="${resource.image}" alt="${resource.title}">`;
+                    }
+                    
+                    resourceCard.innerHTML = `
+                        <div class="card-image">
+                            ${imageContent}
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${resource.title}</div>
+                            <div class="card-meta">
+                                <span>${resource.type}</span>
+                                <span>${resource.downloads}</span>
+                            </div>
+                            <button class="download-btn">Download</button>
+                        </div>
+                    `;
+                    
+                    resourcesGrid.appendChild(resourceCard);
+                });
+                
+                // Add event listeners to new cards
+                const newCards = resourcesGrid.querySelectorAll('.resource-card');
+                newCards.forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        // Prevent opening preview when clicking download button
+                        if (e.target.classList.contains('download-btn')) {
+                            return;
+                        }
+                        
+                        const title = this.dataset.title;
+                        const type = this.dataset.type;
+                        const creator = this.dataset.creator;
+                        const image = this.dataset.image;
+                        
+                        modalTitle.textContent = title;
+                        modalMeta.textContent = `Creator: ${creator}`;
+                        
+                        // Set image or fallback icon
+                        if (image) {
+                            modalImage.innerHTML = `<img src="${image}" alt="${title}">`;
+                        } else {
+                            let iconClass = 'fas fa-vector-square';
+                            if (type === 'PNG' || type === 'JPG') iconClass = 'fas fa-image';
+                            if (type === 'TTF' || type === 'OTF' || type === 'Font') iconClass = 'fas fa-font';
+                            if (type === 'PSD') iconClass = 'fas fa-file-image';
+                            if (type === 'AI' || type === 'Sketch') iconClass = 'fas fa-paint-brush';
+                            if (type === 'EPS' || type === 'Vector') iconClass = 'fas fa-th-large';
+                            if (type === 'HTML') iconClass = 'fas fa-code';
+                            
+                            modalImage.innerHTML = `<div class="icon-fallback"><i class="${iconClass}"></i></div>`;
+                        }
+                        
+                        // Update modal details for specific resources
+                        if (title === "Buddha Purnima") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 EPS file</div>
+                                <div class="modal-detail">- Size: 8.3 Mb</div>
+                            `;
+                        } else if (title === "August Stories Font") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 2 TTF files</div>
+                                <div class="modal-detail">- Size: 224 Kb</div>
+                            `;
+                        } else if (title === "Silver Text Effect") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 PSD file</div>
+                                <div class="modal-detail">- Size: 10.3 Mb</div>
+                            `;
+                        } else {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 PSD file</div>
+                                <div class="modal-detail">- Size: 160 Mb</div>
+                            `;
+                        }
+                        
+                        previewModal.style.display = 'flex';
+                    });
+                });
+                
+                // Add event listeners to download buttons
+                const downloadButtons = resourcesGrid.querySelectorAll('.download-btn');
+                downloadButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const card = this.closest('.resource-card');
+                        const title = card.dataset.title;
+                        const downloadLink = card.dataset.downloadLink;
+                        
+                        if (title === "iMac Screen Mockup" && downloadLink !== "#") {
+                            // Create temporary link for instant download
+                            const link = document.createElement('a');
+                            link.href = downloadLink;
+                            link.download = 'iMac-Showcase-Screen-Scene-Free-psd-Mockup-PIXEDEN.zip';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else if (title === "Buddha Purnima" && downloadLink !== "#") {
+                            // Create temporary link for instant download
+                            const link = document.createElement('a');
+                            link.href = downloadLink;
+                            link.download = 'buddha-purnima-religious-background-faith-peace.eps';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else if (title === "August Stories Font" && downloadLink !== "#") {
+                            // Create temporary link for instant download
+                            const link = document.createElement('a');
+                            link.href = downloadLink;
+                            link.download = 'august-stories.zip';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else if (title === "Silver Text Effect" && downloadLink !== "#") {
+                            // Create temporary link for instant download
+                            const link = document.createElement('a');
+                            link.href = downloadLink;
+                            link.download = 'Silver-Text-Effect.psd';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else {
+                            alert(`Downloading ${title}...`);
+                        }
+                    });
+                });
+            }
+            
+            // Initialize first page
+            displayResources(currentPage);
+            
+            // Download button functionality in modal
+            const downloadModalBtn = document.querySelector('.download-modal-btn');
+            downloadModalBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const title = modalTitle.textContent;
+                
+                // Check if it's the iMac Screen Mockup
+                if (title === "iMac Screen Mockup") {
+                    // Find the resource to get its download link
+                    const resource = allResources.find(r => r.title === title);
+                    if (resource && resource.downloadLink !== "#") {
+                        // Create temporary link for instant download
+                        const link = document.createElement('a');
+                        link.href = resource.downloadLink;
+                        link.download = 'iMac-Showcase-Screen-Scene-Free-psd-Mockup-PIXEDEN.zip';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        alert(`Downloading ${title}...`);
+                    }
+                } else if (title === "Buddha Purnima") {
+                    // Find the resource to get its download link
+                    const resource = allResources.find(r => r.title === title);
+                    if (resource && resource.downloadLink !== "#") {
+                        // Create temporary link for instant download
+                        const link = document.createElement('a');
+                        link.href = resource.downloadLink;
+                        link.download = 'buddha-purnima-religious-background-faith-peace.eps';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        alert(`Downloading ${title}...`);
+                    }
+                } else if (title === "August Stories Font") {
+                    // Find the resource to get its download link
+                    const resource = allResources.find(r => r.title === title);
+                    if (resource && resource.downloadLink !== "#") {
+                        // Create temporary link for instant download
+                        const link = document.createElement('a');
+                        link.href = resource.downloadLink;
+                        link.download = 'august-stories.zip';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        alert(`Downloading ${title}...`);
+                    }
+                } else if (title === "Silver Text Effect") {
+                    // Find the resource to get its download link
+                    const resource = allResources.find(r => r.title === title);
+                    if (resource && resource.downloadLink !== "#") {
+                        // Create temporary link for instant download
+                        const link = document.createElement('a');
+                        link.href = resource.downloadLink;
+                        link.download = 'Silver-Text-Effect.psd';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        alert(`Downloading ${title}...`);
+                    }
+                } else {
+                    alert(`Downloading ${title}...`);
+                }
+                
+                previewModal.style.display = 'none';
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                previewModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === previewModal) {
+                    previewModal.style.display = 'none';
+                }
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                
+                if (query.length > 0) {
+                    const filteredResults = allResources.filter(item => 
+                        item.title.toLowerCase().includes(query) || 
+                        item.type.toLowerCase().includes(query) ||
+                        item.creator.toLowerCase().includes(query)
+                    );
+                    
+                    displaySearchResults(filteredResults);
+                    searchResults.style.display = 'block';
+                    mainContent.style.display = 'none';
+                } else {
+                    searchResults.style.display = 'none';
+                    mainContent.style.display = 'block';
+                }
+            });
+            
+            function displaySearchResults(results) {
+                resultsList.innerHTML = '';
+                
+                if (results.length === 0) {
+                    resultsList.innerHTML = '<div class="result-item"><div>No results found</div></div>';
+                    return;
+                }
+                
+                results.forEach(item => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.dataset.title = item.title;
+                    resultItem.dataset.type = item.type;
+                    resultItem.dataset.creator = item.creator;
+                    resultItem.dataset.image = item.image || '';
+                    resultItem.dataset.downloadLink = item.downloadLink || '#';
+                    
+                    let imageContent = '<i class="fas fa-file-alt"></i>';
+                    if (item.image) {
+                        imageContent = `<img src="${item.image}" alt="${item.title}">`;
+                    }
+                    
+                    resultItem.innerHTML = `
+                        <div class="result-image">
+                            ${imageContent}
+                        </div>
+                        <div class="result-info">
+                            <div class="result-title">${item.title}</div>
+                            <div class="result-type">${item.type} • Creator: ${item.creator}</div>
+                        </div>
+                    `;
+                    
+                    // Add click event to search result items
+                    resultItem.addEventListener('click', function() {
+                        const title = this.dataset.title;
+                        const type = this.dataset.type;
+                        const creator = this.dataset.creator;
+                        const image = this.dataset.image;
+                        
+                        modalTitle.textContent = title;
+                        modalMeta.textContent = `Creator: ${creator}`;
+                        
+                        // Set image or fallback icon
+                        if (image) {
+                            modalImage.innerHTML = `<img src="${image}" alt="${title}">`;
+                        } else {
+                            let iconClass = 'fas fa-vector-square';
+                            if (type === 'PNG' || type === 'JPG') iconClass = 'fas fa-image';
+                            if (type === 'TTF' || type === 'OTF' || type === 'Font') iconClass = 'fas fa-font';
+                            if (type === 'PSD') iconClass = 'fas fa-file-image';
+                            if (type === 'AI' || type === 'Sketch') iconClass = 'fas fa-paint-brush';
+                            if (type === 'EPS' || type === 'Vector') iconClass = 'fas fa-th-large';
+                            if (type === 'HTML') iconClass = 'fas fa-code';
+                            
+                            modalImage.innerHTML = `<div class="icon-fallback"><i class="${iconClass}"></i></div>`;
+                        }
+                        
+                        // Update modal details for specific resources
+                        if (title === "Buddha Purnima") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 EPS file</div>
+                                <div class="modal-detail">- Size: 8.3 Mb</div>
+                            `;
+                        } else if (title === "August Stories Font") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 2 TTF files</div>
+                                <div class="modal-detail">- Size: 224 Kb</div>
+                            `;
+                        } else if (title === "Silver Text Effect") {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 PSD file</div>
+                                <div class="modal-detail">- Size: 10.3 Mb</div>
+                            `;
+                        } else {
+                            modalDetails.innerHTML = `
+                                <div class="modal-detail">- Format: 1 PSD file</div>
+                                <div class="modal-detail">- Size: 160 Mb</div>
+                            `;
+                        }
+                        
+                        previewModal.style.display = 'flex';
+                    });
+                    
+                    resultsList.appendChild(resultItem);
+                });
+            }
+            
+            // Pagination functionality
+            paginationBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const page = parseInt(this.dataset.page);
+                    if (page && page !== currentPage) {
+                        currentPage = page;
+                        updatePagination();
+                        displayResources(currentPage);
+                    }
+                });
+            });
+            
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                    displayResources(currentPage);
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePagination();
+                    displayResources(currentPage);
+                }
+            });
+            
+            function updatePagination() {
+                // Update active button
+                paginationBtns.forEach(btn => {
+                    const page = parseInt(btn.dataset.page);
+                    if (page === currentPage) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Update prev/next button states
+                prevPageBtn.disabled = currentPage === 1;
+                nextPageBtn.disabled = currentPage === totalPages;
+                prevPageBtn.classList.toggle('disabled', currentPage === 1);
+                nextPageBtn.classList.toggle('disabled', currentPage === totalPages);
+            }
+            
+            // Initialize pagination
+            updatePagination();
+        });
+    </script>
+</body>
+</html>
